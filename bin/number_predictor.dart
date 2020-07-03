@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:perceptron/perceptron.dart';
 
 void predictNumbers() {
@@ -41,8 +44,16 @@ void predictNumbers() {
     perceptron.train(data);
   }
   print('network trained');
-  var input = <double>[1,0,1,0,1];
-  print('Array $input: prediction: ${perceptron.process(input)}');
-  input = <double>[0,1,1,0,0];
-  print('Array $input: prediction: ${perceptron.process(input)}');
+  while (true) {
+    var line = stdin.readLineSync(encoding: Encoding.getByName('utf-8'));
+    if (line == '\n') {
+      break;
+    }
+    var input = line.split(' ').map((n) => double.parse(n)).toList();
+    print('Array $input: prediction: ${perceptron.process(input)}');
+  }
+//  var input = <double>[1,0,1,0,1];
+//  print('Array $input: prediction: ${perceptron.process(input)}');
+//  input = <double>[0,1,1,0,0];
+//  print('Array $input: prediction: ${perceptron.process(input)}');
 }
